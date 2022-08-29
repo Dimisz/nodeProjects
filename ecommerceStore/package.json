@@ -4,7 +4,8 @@
   "description": "A full-scale ecommerce project to be used as a portfolio project",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
   },
   "author": "Vladimir Solovyov",
   "license": "ISC",
