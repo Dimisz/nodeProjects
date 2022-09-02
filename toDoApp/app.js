@@ -8,26 +8,42 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
 let items = [];
+let workItems = [];
+
+const today = new Date();
+var options = {
+    weekday: "long",
+    day: "numeric",
+    month: "long"
+};
+
+const day = today.toLocaleDateString("en-US", options);
 
 app.get('/', (req, res) => {
-    var today = new Date();
-    var options = {
-        weekday: "long",
-        day: "numeric",
-        month: "long"
-    };
-
-    const day = today.toLocaleDateString("en-US", options);
-
-    
-    res.render('list', {kindOfDay: day, items: items});
+    res.render('list', {listTitle: day, items: items});
 });
 
 app.post('/', (req, res) => {
     const item = req.body.todo;
-    items.push(item);
-    res.redirect('/');
-})
+    console.log(req.body.list);
+    if(req.body.list === "Work List"){
+        workItems.push(item);
+        res.redirect('/work');
+    }
+    else{
+        items.push(item);
+        res.redirect('/');
+    }
+});
+
+
+app.get('/work', (req, res) => {
+    res.render("list", {listTitle: "Work List", items: workItems})
+});
+
+app.get('/about', (req, res) => {
+    res.render('about');
+});
 
 
 
